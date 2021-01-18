@@ -131,6 +131,7 @@ public class RPSMenu : MonoBehaviour
                     PlayerTurnIcons[currentTurnIcon].GetComponent<Image>().sprite = ShieldButton.GetComponent<Image>().sprite;
                     PlayerTurnIcons[currentTurnIcon].transform.Find("IconAnim").gameObject.SetActive(false);
                     if (currentTurnIcon != 5) { currentTurnIcon++; }
+                    else { attackPrompt.SetBool("PromptReady", true); }
                     PlayerTurnIcons[currentTurnIcon].transform.Find("IconAnim").gameObject.SetActive(true);
                     break;
 
@@ -139,6 +140,7 @@ public class RPSMenu : MonoBehaviour
                     PlayerTurnIcons[currentTurnIcon].GetComponent<Image>().sprite = BreakButton.GetComponent<Image>().sprite;
                     PlayerTurnIcons[currentTurnIcon].transform.Find("IconAnim").gameObject.SetActive(false);
                     if (currentTurnIcon != 5) { currentTurnIcon++; }
+                    else { attackPrompt.SetBool("PromptReady", true); }
                     PlayerTurnIcons[currentTurnIcon].transform.Find("IconAnim").gameObject.SetActive(true);
                     break;
             }
@@ -166,6 +168,11 @@ public class RPSMenu : MonoBehaviour
             case 3:
                 return "0" + input;
         }
+        switch(input <= 0)
+        {
+            case true:
+                return "0000";
+        }
         return input.ToString();
     }
     void SetMaxStats()
@@ -188,7 +195,10 @@ public class RPSMenu : MonoBehaviour
     {
         
         playerHPBar.value = battleManager.playerHealth;
+        playerHPText.text = FourDigits(battleManager.playerHealth);
         playerMPBar.value = battleManager.playerMagic;
+        playerMPText.text = FourDigits(battleManager.playerMagic);
         enemyHPBar.value = battleManager.enemyHealth;
+        enemyHPText.text = FourDigits(battleManager.enemyHealth);
     }
 }

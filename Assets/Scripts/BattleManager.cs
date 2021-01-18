@@ -10,16 +10,21 @@ public class BattleManager : MonoBehaviour
 
     [Header("Player")]
     public int playerMaxHealth;
+    [HideInInspector]
     public int playerHealth;
     public int playerMaxMagic;
+    [HideInInspector]
     public int playerMagic;
     public int playerDefense;
     public int playerAttack;
 
     [Header("Enemy")]
     public EnemyObject enemyData;
+    [HideInInspector]
     public int enemyHealth;
+    [HideInInspector]
     public int enemyDefense;
+    [HideInInspector]
     public int enemyAttack;
     private int patternChosen;
 
@@ -29,6 +34,27 @@ public class BattleManager : MonoBehaviour
 
         HUD = GetComponent<RPSMenu>();
     }
+
+
+    void PlayBattleSequence(string playerAttackSeq)
+    {
+        string battleResults = RPSCheckAllTurns(playerAttackSeq);
+        for(int i = 0; i < 6; i++)
+        {
+            switch (battleResults[i])
+            {
+                case 'w':
+                    break;
+
+                case 'l':
+                    break;
+
+                case 'd':
+                    break;
+            }
+        }
+    }
+
     void RandomPattern() // Picks a random pattern out of the ones in the enemy object
     {
         patternChosen = UnityEngine.Random.Range(0, enemyData.patterns.Length);
@@ -50,14 +76,15 @@ public class BattleManager : MonoBehaviour
     }
     public char RPSCheck1Turn(char playerChoice,char enemyChoice)
     {
+
         if (playerChoice == enemyChoice)
         {
             return 'd';
         }
         else if (playerChoice == 'a' && enemyChoice == 'b')
         {
-            enemyHealth -= 50;
-            HUD.SetStats();
+           
+            
             return 'w';
             
         }
